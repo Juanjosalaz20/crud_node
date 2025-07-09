@@ -22,12 +22,12 @@ let usuarios=[
 
 
 //ruta para obtener todos los usuarios de la api
-app.get('/usuarios', (req,res)=>{
+app.get('/usuarios/todos', (req,res)=>{
     res.json(usuarios)
 })
 
 //ruta para obtener un usuario especifico
-app.get('/usuarios/:id', (req,res)=>{
+app.get('/usuarios/buscar/:id', (req,res)=>{
     const id=parseInt(req.params.id);
     //console.log(typeof(id))
     const usuario=usuarios.find(user=>user.id===id)
@@ -43,7 +43,7 @@ app.get('/usuarios/:id', (req,res)=>{
 })
 
 //ruta para crear un nuevo usuario
-app.post('/usuarios', (req,res)=>{
+app.post('/usuarios/crear', (req,res)=>{
     const {nombre,email}=req.body; //desestructuring
     const nuevoUsuario={
         id:usuarios.length+1,
@@ -60,7 +60,7 @@ app.post('/usuarios', (req,res)=>{
 
 
 //ruta para modificar o actualizar un usuario
-app.put('/usuarios/:id',(req, res)=>{
+app.put('/usuarios/modificar/:id',(req, res)=>{
     const id = parseInt(req.params.id);
     const {nuevoNombre}=req.body;
     const usuario=usuarios.find(user=> user.id===id);
@@ -75,6 +75,30 @@ app.put('/usuarios/:id',(req, res)=>{
 
 })
 
+//ruta para eliminar usuario
+app.delete('/usuarios/eliminar/:id',(req,res)=>{
+
+    //obtener el id dek usuario por params de la url
+    const id=parseInt(req.params.id);
+
+    //buscar en la lista de usuarios el id que corresponda y recuperamos el indice
+    const indice = usuarios.findIndex(user=>user.id===id);
+    //console.log(indice)
+    //en caso de no encontrar el usuario a eliminar
+    if(indice===-1){
+        res.status(404).json({
+            mensaje: 'usuario no encontrado'
+        })
+    }
+
+    //dado que es una lista, elimminemos el usuario con el indice encontrado
+    usuarios.splice(indice,1)
+    res.status(201).json({
+        mensaje:`usuario ${indice+1} eliminado correctamente`
+    })
+
+
+})
 
 app.listen(port,()=>{
     console.log(`Servidor activo en el puerto ${port}`)
