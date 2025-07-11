@@ -2,13 +2,14 @@ const express=require('express'); //importar paquetes instalados con npm
 const app=express(); //la variable guarda una instancia de un servidor de express
 require('dotenv').config();//cargamos .env
 const sequelize=require('./config/database');
+const UsuarioRoutes=require('./routes/UsuarioRoutes')
 
-const port=process.env.PORT 
+const port=process.env.PORT //accedemos a la variable
 
 
 app.use(express.json())//esto permite pasar informacion por el body
-
-
+app.use('/', UsuarioRoutes);
+//promesa
 
 sequelize.sync().then(()=>{
     app.listen(port,()=>{
