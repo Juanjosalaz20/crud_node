@@ -3,8 +3,8 @@ const router = express.Router();
 const controlador = require('../controllers/UsuarioController');
 
 router.get('/usuarios/todos', controlador.obtenerUsuarios);
-
-router.get('/usuarios/buscar/:id', controlador.obtenerUsuariosporId )
+router.get('/usuarios/buscar/:id', controlador.obtenerUsuariosporId );
+router.post('/usuarios/crear', controlador.crearUsuario);
 
 module.exports=router;
 

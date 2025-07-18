@@ -16,3 +16,25 @@ exports.obtenerUsuariosporId= async (req, res)=>{
     }
     res.json(usuario)
 };
+
+exports.crearUsuario = async (req,res)=>{
+
+    //obtener los datos del json que llegaran por el body
+    const {nombre,correo}=req.body;
+
+    //insertar el nuevo usuario a la BBDD
+    const nuevoUsuario ={
+        nombre,
+        correo
+    };
+
+    //entregar una respuesta al cliente
+    const nuevo = await Usuario.create(nuevoUsuario);
+        
+    res.status(201).json({
+        mensaje: 'Usuario creado con exito',
+        usuario: nuevo
+    });
+
+}
+

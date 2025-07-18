@@ -2,7 +2,7 @@ const express=require('express'); //importar paquetes instalados con npm
 const app=express(); //la variable guarda una instancia de un servidor de express
 require('dotenv').config();//cargamos .env
 const sequelize=require('./config/database');
-const UsuarioRoutes=require('./routes/UsuarioRoutes')
+const UsuarioRoutes=require('./routes/UsuarioRoutes') //Trae todas las rutas
 
 const port=process.env.PORT //accedemos a la variable
 
